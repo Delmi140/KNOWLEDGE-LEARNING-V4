@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Acceuil{% endblock %}
+{% block title %}Boutique{% endblock %}
 
 {% block body %}
 
@@ -32,8 +32,53 @@
 
 <main>
     <div>
-        <h1>Knowledge learning</h1>
+        <h1>Boutique</h1>
+    </div>
+
+    <div>
+        <div>
+            <div>
+
+                {% for category in categorys %}
+
+                <h2>Catégorie</h2>
+                <p>Nom : {{ category.name }}</p>
+
+                {% endfor %}
+
+            </div>
+            <div>
+
+                {% for cursusC in cursusCs %}
+
+                <h2>Cursus</h2>
+                <p>Nom: {{ cursusC.name }} </p>
+                <p>prix: {{ cursusC.price }} €</p>
+
+                {% endfor %}
+
+            </div>
+            <div>
+
+                {% for lessonsC in lessonsCs %}
+
+                <h2>Leçon</h2>
+                <p>Nom: {{lessonsC.name }} </p>
+                <p>prix: {{ lessonsC.content }}</p>
+                <p>Video: {{lessonsC.attachment}} </p>
+                <p>prix:  {{ lessonsC.price }} €</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        
+    </div>
 
 </main>
+
+
 
 {% endblock %}
