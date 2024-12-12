@@ -27,6 +27,11 @@ class CategoryShop
     #[ORM\OneToMany(targetEntity: Cursus::class, mappedBy: 'category')]
     private Collection $cursuses;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->cursuses = new ArrayCollection();
