@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://127.0.0.1:8000/">
+      <img src="" alt="" width="30" height="24" class="d-inline-block align-text-top">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/product">Boutique</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/login">Se déconnecter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<main>
+
+    <div>
+      <h1>Leçon</h1>
+
+    <div>
+    
+    
+
+
+
+    <div class="cart-boutique">
+    <div class="card" style="width: 80rem;">
+      <div class="card-header">
+        <h2>{{ product.name }}</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Cours</h5>
+        <p class="card-text">{{ product.content }}</p>
+        
+        <div class=image-product >
+            <img src="{{ vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top" alt="...">
+        </div>
+        <a href="#" class="btn btn-primary">Ajouter au panier</a>
+      </div>
+    </div>
+    </div>
+
+      
+</main>
+
+{% endblock %}
