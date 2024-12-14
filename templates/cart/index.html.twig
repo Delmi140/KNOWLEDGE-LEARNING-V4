@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://127.0.0.1:8000/">
+      <img src="" alt="" width="30" height="24" class="d-inline-block align-text-top">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/product">Boutique</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/cart">Panier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/login">Se déconnecter</a>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+
+
+<main>
+    <div>
+        <h1>Mon Panier</h1>
+
+        {% for item in cart %}
+
+            <h3>{{ item.cursus.name }}</h3>
+
+        {% endfor %}
+
+    </div>
+
+</main>
+
+{% endblock %}
