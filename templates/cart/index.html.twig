@@ -33,6 +33,7 @@
 <main>
   {% if cart|length > 0 %}
   <div>
+  <form action="{{ path('order_index') }}">
     <div>
         <h1>Mon Panier</h1>
       </div>
@@ -89,6 +90,7 @@
         </div>
         <div class="text-end ms-auto">
           <button class="btn btn-lg btn-primary " type="submit">FINALISER MA COMMANDE</button>
+          </form>
         </div>
         <div class="text-end ms-auto">
          <a href="{{ path('app_product') }}" class="btn btn-primary">CONTINUER MES ACHATS</a>
