@@ -2,7 +2,7 @@
 namespace App\Service;
 
 use App\Entity\Cursus;
-use App\Entity\SweatShirts;
+use App\Entity\Lessons;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,14 +20,18 @@ class CartService {
     }
 
 
-    public function addToCart(int $id) : void {
+    public function addToCart(string $type,int $id) : void {
 
         $card = $this->requestStack->getSession()->get('cart', []);
-        if(!empty($card[$id])) {
-            $card[$id]++;
+
+        $key = "{$type}_{$id}";
+
+        if(!empty($card[$key])) {
+            $card[$key]++;
         }else{
-        $card[$id] = 1;
+        $card[$key] = 1;
         }
+
         $this->getSession()->set('cart' ,$card );
 
     }
@@ -44,15 +48,26 @@ class CartService {
         $cart = $this->getSession()->get('cart');
         $cartData = [];
         if($cart){
-            foreach ( $cart as $id => $quantity){
-                $cursus = $this->em->getRepository(Cursus::class)->findOneBy(['id' => $id]);
-                if(!$cursus){
+            foreach ( $cart as $key => $quantity){
+                [$type, $id] = explode('_', $key);
 
+                if ($type === 'cursus') {
+                    $entity = $this->em->getRepository(Cursus::class)->find($id);
+                } elseif ($type === 'lessons') {
+                    $entity = $this->em->getRepository(Lessons::class)->find($id);
+                } else {
+                    continue; // Ignore les entrées inconnues
                 }
-                $cartData[] = [
-                    'cursus' => $cursus,
-                    'quantity' => $quantity
-                ];
+
+                if ($entity) {
+                    $cartData[] = [
+                        'type' => $type,
+                        'entity' => $entity,
+                        'quantity' => $quantity,
+                    ];
+                }
+
+
             }
         }
         return $cartData;
@@ -60,7 +75,15 @@ class CartService {
     }
 
 
+    public function removeToCart(string $type,int $id) 
+    {
+        $card = $this->requestStack->getSession()->get('cart', []);
 
+        $key = "{$type}_{$id}";
+
+        unset($card[$key]);
+        return $this->getSession()->set('cart',$card );
+    }
 
     
     private function getSession() : SessionInterface 
