@@ -20,6 +20,8 @@ class ProductController extends AbstractController
     public function index(): Response
     {
 
+        
+
         $categorys = $this->em->getRepository(CategoryShop::class)->findByIds([1]);
         $categoryInfos = $this->em->getRepository(CategoryShop::class)->findByIds([2]);
         $categoryJards = $this->em->getRepository(CategoryShop::class)->findByIds([3]);

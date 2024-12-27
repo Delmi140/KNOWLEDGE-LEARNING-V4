@@ -34,6 +34,7 @@
 
 
 <main>
+
     <div>
         <h1>Boutique</h1>
     </div>
@@ -56,9 +57,18 @@
         {% for cursusC in cursusCs %}
         <h4 class="card-title"> {{ cursusC.name }}</h4>
         <p class="card-text">Prix: {{ (cursusC.price / 100)|number_format(2,) }} €</p>
-        <a href="{{ path('cart_add', {type: 'cursus',id: cursusC.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-    
-        {% endfor %}
+       
+        
+        
+       
+        {% if cursusC in app.user.purchasedCursuses %}
+          <p>Vous avez accées aux leçons</p>
+        {% else %}
+          <a href="{{ path('cart_add', {type: 'cursus', id: cursusC.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+        {% endif %}
+
+
+
         <div class="card-cursus">
 
 
@@ -70,8 +80,22 @@
             <div class="card-body">
               <h6>{{lessonsC.name }}</h6>
               <p>Prix:  {{ (lessonsC.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsC.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsC.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+
+              
+                
+
+              
+                {% if lessonsC in app.user.purchasedLessons  or  cursusC in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsC.id}) }}" class="btn btn-primary">voir</a>
+                {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsC.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -86,8 +110,18 @@
             <div class="card-body">
               <h6>{{lessonsCsguitatre.name }}</h6>
               <p>Prix:  {{ (lessonsCsguitatre.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsguitatre.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCsguitatre.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+              
+                
+              {% if lessonsCsguitatre in app.user.purchasedLessons  or  cursusC in app.user.purchasedCursuses %}
+                <a href="{{ path('details_index', {id: lessonsCsguitatre.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsguitatre.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+              
             </div>
             {% endfor %}
           </div>
@@ -95,16 +129,30 @@
 
 
         </div>
+        
+
+
+
+        {% endfor %}
+        
       </div>
       <div class="card-body">
         {% for cursusCspiano in cursusCspianos %}
         <h4 class="card-title"> {{ cursusCspiano.name }}</h4>
         <p class="card-text">Prix: {{ (cursusCspiano.price / 100)|number_format(2,) }} €</p>
-        <a href="{{ path('cart_add', {type: 'cursus',id: cursusCspiano.id }) }}" class="btn btn-primary">Ajouter au panier</a>
         
-        {% endfor %}
         
-        <div class="card-cursus">
+        
+        
+        
+        {% if cursusCspiano in app.user.purchasedCursuses %}
+          <p>Vous avez accées aux leçons</p>
+        {% else %}
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCspiano.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+        {% endif %}
+
+
+      <div class="card-cursus">
 
 
           <div class="card" style="width: 20rem;">
@@ -115,8 +163,21 @@
             <div class="card-body">
               <h6>{{lessonsCspianosI.name }}</h6>
               <p>Prix:  {{ (lessonsCspianosI.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCspianosI.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              
+                
+
+              {% if lessonsCspianosI in app.user.purchasedLessons  or  cursusCspiano in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCspianosI.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -131,15 +192,39 @@
             <div class="card-body">
               <h6>{{lessonsCspianosG.name }}</h6>
               <p>Prix:  {{ (lessonsCspianosG.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosG.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCspianosG.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+              
+              
+              
+
+              {% if lessonsCspianosG in app.user.purchasedLessons  or  cursusCspiano in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCspianosG.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosG.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
             </div>
             {% endfor %}
           </div>
 
 
 
+
+
+
         </div>
+
+
+
+
+
+        
+        {% endfor %}
+        
+        
 
       </div>
     </div>
@@ -159,8 +244,14 @@
         {% for cursusCsInfo in cursusCsInfos %}
         <h4 class="card-title"> {{ cursusCsInfo.name }}</h4>
         <p class="card-text">Prix: {{ (cursusCsInfo.price / 100)|number_format(2,) }} €</p>
-        <a href="{{ path('cart_add', {type: 'cursus',id: cursusCsInfo.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-        {% endfor %}
+        
+
+        {% if cursusCsInfo in app.user.purchasedCursuses %}
+          <p>Vous avez accées aux leçons</p>
+        {% else %}
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCsInfo.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+        {% endif %}
+
 
         <div class="card-cursus">
 
@@ -173,8 +264,18 @@
             <div class="card-body">
               <h6>{{lessonsCsinfosI.name }}</h6>
               <p>Prix:  {{ (lessonsCsinfosI.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCsinfosI.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              {% if lessonsCsinfosI in app.user.purchasedLessons  or  cursusCsInfo in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCsinfosI.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -189,8 +290,15 @@
             <div class="card-body">
               <h6>{{lessonsCsinfosD.name }}</h6>
               <p>Prix:  {{ (lessonsCsinfosD.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosD.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCsinfosD.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              {% if lessonsCsinfosD in app.user.purchasedLessons  or  cursusCsInfo in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCsinfosD.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosD.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
             </div>
             {% endfor %}
           </div>
@@ -198,6 +306,19 @@
 
 
         </div>
+
+
+
+
+
+        {% endfor %}
+
+        
+
+
+
+
+
 
 
       </div>
@@ -219,8 +340,18 @@
         {% for cursusJard in cursusJards %}
          <h4 class="card-title"> {{ cursusJard.name }}</h4>
          <p class="card-text">Prix: {{ (cursusJard.price / 100)|number_format(2,) }} €</p>
-         <a href="{{ path('cart_add', {type: 'cursus',id: cursusJard.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-        {% endfor %}
+         
+
+
+        {% if cursusJard in app.user.purchasedCursuses %}
+          <p>Vous avez accées aux leçons</p>
+        {% else %}
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusJard.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+        {% endif %}
+
+
+
+
         <div class="card-cursus">
 
 
@@ -232,8 +363,16 @@
             <div class="card-body">
               <h6>{{lessonsJardO.name }}</h6>
               <p>Prix:  {{ (lessonsJardO.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsJardO.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              {% if lessonsJardO in app.user.purchasedLessons  or  cursusJard in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsJardO.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -248,8 +387,17 @@
             <div class="card-body">
               <h6>{{lessonsJardL.name }}</h6>
               <p>Prix:  {{ (lessonsJardL.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardL.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsJardL.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+              {% if lessonsJardL in app.user.purchasedLessons  or  cursusJard in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsJardL.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardL.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -259,7 +407,24 @@
         </div>
 
 
+        {% endfor %}
+        
+
+
+
+
+
+
+
+
+
       </div>
+
+
+
+
+
+      
     </div>
     </div>
 
@@ -278,8 +443,15 @@
         {% for cursusCuiI in cursusCuiIs %}
          <h4 class="card-title"> {{ cursusCuiI.name }}</h4>
          <p class="card-text">Prix: {{ (cursusCuiI.price / 100)|number_format(2,) }} €</p>
-         <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-        {% endfor %}
+         
+
+          {% if cursusCuiI in app.user.purchasedCursuses %}
+            <p>Vous avez accées aux leçons</p>
+          {% else %}
+            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+          {% endif %}
+
+
         <div class="card-cursus">
 
 
@@ -291,8 +463,17 @@
             <div class="card-body">
               <h6>{{lessonsCuiM.name }}</h6>
               <p>Prix:  {{ (lessonsCuiM.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiM.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCuiM.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+              {% if lessonsCuiM in app.user.purchasedLessons  or  cursusCuiI in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCuiM.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiM.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -307,8 +488,16 @@
             <div class="card-body">
               <h6>{{lessonsCuiS.name }}</h6>
               <p>Prix:  {{ (lessonsCuiS.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiS.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCuiS.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              {% if lessonsCuiS in app.user.purchasedLessons  or  cursusCuiI in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCuiS.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiS.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -316,14 +505,34 @@
 
 
         </div>
+
+
+
+
+
+        {% endfor %}
+        
+
+
+
+
+        
       </div>
       <div class="card-body">
         {% for cursusCuiIA in cursusCuiIAs %}
          <h4 class="card-title"> {{ cursusCuiIA.name }}</h4>
          <p class="card-text">Prix: {{ (cursusCuiIA.price / 100)|number_format(2,) }} €</p>
-         <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiIA.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-        {% endfor %}
-        
+         
+
+          {% if cursusCuiIA in app.user.purchasedCursuses %}
+            <p>Vous avez accées aux leçons</p>
+          {% else %}
+            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiIA.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+          {% endif %}
+
+
+
+
         <div class="card-cursus">
 
 
@@ -335,8 +544,17 @@
             <div class="card-body">
               <h6>{{lessonsCuiO.name }}</h6>
               <p>Prix:  {{ (lessonsCuiO.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCuiO.id}) }}" class="btn btn-primary">voir</a>
+              
+
+
+              {% if lessonsCuiO in app.user.purchasedLessons  or  cursusCuiIA in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCuiO.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
+
             </div>
             {% endfor %}
           </div>
@@ -351,8 +569,16 @@
             <div class="card-body">
               <h6>{{lessonsCuiH.name }}</h6>
               <p>Prix:  {{ (lessonsCuiH.price / 100)|number_format(2,) }} €</p>
-              <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiH.id }) }}" class="btn btn-primary">Ajouter au panier</a>
-              <a href="{{ path('details_index', {id: lessonsCuiH.id}) }}" class="btn btn-primary">voir</a>
+              
+
+              
+              {% if lessonsCuiH in app.user.purchasedLessons  or  cursusCuiIA in app.user.purchasedCursuses %}
+                  <a href="{{ path('details_index', {id: lessonsCuiH.id}) }}" class="btn btn-primary">voir</a>
+              {% else %}
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiH.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+              {% endif %}
+
+
             </div>
             {% endfor %}
           </div>
@@ -360,6 +586,17 @@
 
 
         </div>
+
+
+
+        {% endfor %}
+        
+        
+
+
+
+
+
 
       </div>
     </div>

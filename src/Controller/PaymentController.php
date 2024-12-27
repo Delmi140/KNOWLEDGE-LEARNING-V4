@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Cursus;
+use App\Entity\Lessons;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +13,7 @@ use Stripe\Checkout\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 
 
 
@@ -32,6 +35,7 @@ class PaymentController extends AbstractController{
         $productStripe = [];
 
         $recapCart = $cartService->getTotal() ;
+        
 
         foreach($recapCart as $item){
             $productStripe[] =[
@@ -65,7 +69,36 @@ class PaymentController extends AbstractController{
     }
 
     #[Route('/order/success/', name:'payment_success')]
-    public function stripeSuccess(CartService $cartService): Response {
+    public function stripeSuccess(CartService $cartService, EntityManagerInterface $entityManager ): Response {
+
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+        
+
+        if (!$user instanceof \App\Entity\User) {
+            throw new \LogicException('L\'utilisateur actuel n\'est pas authentifié ou n\'est pas valide.');
+        }
+
+
+       
+        // Ajouter les cursus et leçons achetés à l'utilisateur
+        $cartItems = $cartService->getTotal();
+
+        foreach ($cartItems as $item) {
+        $product = $item['entity'];
+        
+        if ($product instanceof Cursus || $product instanceof Lessons) {
+            $user->addPurchasedProduct($product);
+            }
+        }
+
+        $entityManager->flush(); // Sauvegarde en BDD
+        
+
+        // Videz le panier
+        $cartService->removeCartAll();
+
+
         return $this->render('order/success.html.twig');
 
     }

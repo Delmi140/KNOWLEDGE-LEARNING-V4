@@ -34,6 +34,8 @@ class Cursus
     #[ORM\OneToMany(targetEntity: Lessons::class, mappedBy: 'cursus')]
     private Collection $lessons;
 
+    
+
 
 
     public function __toString()
@@ -44,6 +46,7 @@ class Cursus
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -128,4 +131,6 @@ class Cursus
 
         return $this;
     }
+
+    
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -55,13 +57,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+
+
+
+    #[ORM\ManyToMany(targetEntity: Cursus::class)]
+    #[ORM\JoinTable(name: 'user_cursus')]
+    private Collection $purchasedCursuses;
+
+    #[ORM\ManyToMany(targetEntity: Lessons::class)]
+    #[ORM\JoinTable(name: 'user_lessons')]
+    private Collection $purchasedLessons;
+
     public function __construct()
     {
         $this->createdAt = new DateTime('now');
         $this->isVerified = false;
         $this->tokenRegistrationLifeTime = (new DateTime('now'))->add (new DateInterval("P1D"));
+        $this->purchasedCursuses = new ArrayCollection();
+        $this->purchasedLessons = new ArrayCollection();
         
         
+    }
+
+
+
+
+    
+
+    public function __toString()
+    {
+        return $this->delivery_address;
+        return $this->name;
+       
+
+    }
+
+    public function getPurchasedLessons(): Collection
+    {
+    return $this->purchasedLessons;
+    }
+
+    public function getPurchasedCursuses(): Collection
+    {
+        return $this->purchasedCursuses;
+    }
+
+
+
+    public function addPurchasedProduct($product): void
+    {
+        if ($product instanceof Cursus && !$this->purchasedCursuses->contains($product)) {
+            $this->purchasedCursuses->add($product);
+        } elseif ($product instanceof Lessons && !$this->purchasedLessons->contains($product)) {
+            $this->purchasedLessons->add($product);
+        }
     }
 
     
@@ -164,6 +213,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -211,4 +262,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+   
 }

@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CartService;
+use Symfony\Component\HttpFoundation\Request;
 
 class OrderController extends AbstractController
 {
@@ -22,4 +25,9 @@ class OrderController extends AbstractController
             'recapCart' => $cartService->getTotal(),
         ]);
     }
+
+
+
+
+
 }
