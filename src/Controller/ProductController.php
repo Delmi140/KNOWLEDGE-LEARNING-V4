@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
+use App\Repository\LessonsRepository;
+
+
+
 class ProductController extends AbstractController
 {
 
@@ -98,6 +102,42 @@ class ProductController extends AbstractController
             
             'product' => $product
             ]);
+    }
+
+
+    #[Route('/lesson/validate/{id}', name: 'lesson_validate')]
+    public function validateLesson(int $id, LessonsRepository $lessonsRepository, EntityManagerInterface $entityManager,): Response
+    {
+
+        $user = $this->getUser(); // Utilisateur connecté
+
+        if (!$user instanceof \App\Entity\User) {
+            throw new \LogicException('L\'utilisateur actuel n\'est pas authentifié ou n\'est pas valide.');
+        }
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour valider une leçon.');
+        }
+
+        
+        $lesson = $lessonsRepository->find($id);
+
+        if (!$lesson) {
+            throw $this->createNotFoundException('Leçon introuvable.');
+        }
+
+
+        $user->addPurchasedProduct($lesson); // Ajout au compte utilisateur
+        $lesson->setValidated(true);
+
+
+        $entityManager->persist($lesson);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Leçon validée avec succès.');
+
+        return $this->redirectToRoute('validation_page');
     }
 
 }

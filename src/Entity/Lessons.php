@@ -48,7 +48,21 @@ class Lessons
     #[ORM\JoinColumn(nullable: false)]
     private ?Cursus $cursus = null;
 
+
     
+    #[ORM\Column(type: "boolean")]
+    private bool $isValidated = false;
+
+    public function isValidated(): bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
+        return $this;
+    }
 
     
 

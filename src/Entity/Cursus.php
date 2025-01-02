@@ -35,7 +35,15 @@ class Cursus
     private Collection $lessons;
 
     
-
+    public function isValidated(): bool
+    {
+        foreach ($this->lessons as $lesson) {
+            if (!$lesson->isValidated()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     public function __toString()

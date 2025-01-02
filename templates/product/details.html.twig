@@ -50,7 +50,8 @@
         <div class=image-product >
             <img src="{{ vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top" alt="...">
         </div>
-        <a href="#" class="btn btn-primary">Valider</a>
+       
+        <a href="{{ path('lesson_validate', {'id': product.id}) }}" class="btn btn-primary">Valider</a>
       </div>
     </div>
     </div>
