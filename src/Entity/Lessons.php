@@ -64,7 +64,10 @@ class Lessons
         return $this;
     }
 
-    
+    public function getIsValidated(): bool
+    {
+    return $this->isValidated;
+    }
 
 
     public function getId(): ?int

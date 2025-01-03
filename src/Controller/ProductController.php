@@ -126,9 +126,21 @@ class ProductController extends AbstractController
             throw $this->createNotFoundException('Leçon introuvable.');
         }
 
+        if ($user->getPurchasedLessonsValidation()->contains($lesson)) {
+            $this->addFlash('warning', 'Cette leçon est déjà validée.');
+            return $this->redirectToRoute('validation_page');
+        }
+        
 
-        $user->addPurchasedProduct($lesson); // Ajout au compte utilisateur
+        $user->addPurchasedProductValidation($lesson); // Ajout au compte utilisateur
         $lesson->setValidated(true);
+
+        
+        $cursus = $lesson->getCursus();
+        if ($cursus && $cursus->isFullyValidated()) {
+            $user->addPurchasedProductValidation($cursus);
+        }
+
 
 
         $entityManager->persist($lesson);

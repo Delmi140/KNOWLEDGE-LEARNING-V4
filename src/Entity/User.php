@@ -68,6 +68,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinTable(name: 'user_lessons')]
     private Collection $purchasedLessons;
 
+
+    #[ORM\ManyToMany(targetEntity: Cursus::class)]
+    #[ORM\JoinTable(name: 'user_cursus_validation')]
+    private Collection $purchasedCursusesValidation;
+
+    #[ORM\ManyToMany(targetEntity: Lessons::class)]
+    #[ORM\JoinTable(name: 'user_lessons_validation')]
+    private Collection $purchasedLessonsValidation;
+
     public function __construct()
     {
         $this->createdAt = new DateTime('now');
@@ -75,6 +84,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tokenRegistrationLifeTime = (new DateTime('now'))->add (new DateInterval("P1D"));
         $this->purchasedCursuses = new ArrayCollection();
         $this->purchasedLessons = new ArrayCollection();
+        $this->purchasedCursusesValidation = new ArrayCollection();
+        $this->purchasedLessonsValidation = new ArrayCollection();
         
         
     }
@@ -91,6 +102,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        
 
     }
+
+
+    public function getPurchasedLessonsValidation(): Collection
+    {
+        
+    
+        return $this->purchasedLessonsValidation;
+
+    
+    }
+
+    public function getPurchasedCursusesValidation(): Collection
+    {
+        return $this->purchasedCursusesValidation;
+    }
+
+    public function addPurchasedProductValidation($product): void
+    {
+        if ($product instanceof Cursus && !$this->purchasedCursusesValidation->contains($product)) {
+            $this->purchasedCursusesValidation->add($product);
+        } elseif ($product instanceof Lessons && !$this->purchasedLessonsValidation->contains($product)) {
+            $this->purchasedLessonsValidation->add($product);
+        }
+    }
+
+
+
+
 
     public function getPurchasedLessons(): Collection
     {

@@ -26,8 +26,10 @@ class ValidationController extends AbstractController
         }
 
 
-        $lessons = $user->getPurchasedLessons();
-        $cursuses = $user->getPurchasedCursuses();
+        $lessons = $user->getPurchasedLessonsValidation();
+        $cursuses = $user->getPurchasedCursusesValidation()->filter(function ($cursus) {
+        return $cursus->isFullyValidated();
+        });
 
 
 

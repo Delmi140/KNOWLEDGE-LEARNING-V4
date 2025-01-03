@@ -35,16 +35,15 @@ class Cursus
     private Collection $lessons;
 
     
-    public function isValidated(): bool
+    public function isFullyValidated(): bool
     {
-        foreach ($this->lessons as $lesson) {
-            if (!$lesson->isValidated()) {
-                return false;
-            }
+    foreach ($this->lessons as $lesson) {
+        if (!$lesson->getIsValidated()) {
+            return false;
         }
-        return true;
     }
-
+    return true;
+    }
 
     public function __toString()
     {

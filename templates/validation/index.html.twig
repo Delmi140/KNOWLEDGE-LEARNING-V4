@@ -53,14 +53,11 @@
 
 
     <h2>Cursus</h2>
-    <ul>
-        {% for cursuse in cursuses %}
-            <li>
-                {{ cursuse.name }} 
-                
-            </li>
-        {% endfor %}
-    </ul>
+  <ul>
+    {% for cursus in cursuses %}
+        <li>{{ cursus.name }} - {{ cursus.isFullyValidated ? 'Validé' : 'Non validé' }}</li>
+    {% endfor %}
+  </ul>
 
 </main>
 
