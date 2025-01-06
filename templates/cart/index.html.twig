@@ -34,7 +34,9 @@
   {% if cart|length > 0 %}
   <div>
   <form action="{{ path('order_index') }}">
-    <div>
+
+  
+    <div class="h1-home">
         <h1>Mon Panier</h1>
       </div>
 
@@ -49,10 +51,10 @@
   <div class="cart-boutique">
     <div class="card" style="width: 80rem;">
       <div class="card-header">
-        <h2>MON PANIER</h2>
+        <h2 class="h2-cart">MON PANIER</h2>
       </div>
       <div class="card-body">
-        <p>Ajouter d'autres articles disponibles sur le site<a href="{{ path('app_product') }}"> Voir les articles<a/></p>
+        <p class="p-cart">Ajouter d'autres articles disponibles sur le site<a href="{{ path('app_product') }}"> Voir les articles<a/></p>
         
         
         
@@ -66,17 +68,17 @@
             <div class="card col-md-6 col-lg-4" style="width: 50rem;">
               
               <div class="card-body">
-                <h5 class="card-title">Nom: {{item.entity.name}}</h5>
-                <p>Réference: {{item.entity.slug}}</p>
-                <p> Quantité: {{item.quantity}}</p>
+                <h5 class="h5-cart">Nom: {{item.entity.name}}</h5>
+                <p class="p-cart">Réference: {{item.entity.slug}}</p>
+                <p class="p-cart"> Quantité: {{item.quantity}}</p>
                 
                 
-                <a href="{{ path('cart_remove', {type: item.type , id: item.entity.id }) }}" class="btn btn-primary">RETIRER DU PANIER</a>
+                <a href="{{ path('cart_remove', {type: item.type , id: item.entity.id }) }}" class="btn btn-primary" id="btn-cart2">RETIRER DU PANIER</a>
 
                 
               </div>
               <div class="text-end ms-auto">
-                <div class="fs-5 mb-2">Prix: {{ (item.entity.price / 100)|number_format(2, ',')  }} €</div>
+                <div class="fs-5 mb-2" id="p-cart">Prix: {{ (item.entity.price / 100)|number_format(2, ',')  }} €</div>
                 
               </div>
             </div>
@@ -85,16 +87,21 @@
         </div>
         {% endfor %}
         
-        <div class="text-end ms-auto">
-          <h3>Total : {{ (total / 100)|number_format(2, ',') }} €</h3>
+        <div class="text-end ms-auto" >
+          <h3 class="h3-cart">Total : {{ (total / 100)|number_format(2, ',') }} €</h3>
+
+          <div class="cart-f">
+            <button class="btn btn-lg btn-primary " type="submit" id="btn-cart1">FINALISER MA COMMANDE</button>
+            </form>
+          </div>
+
+          <div class="cart-f">
+            <a href="{{ path('app_product') }}" class="btn btn-primary" id="btn-cart1">CONTINUER MES ACHATS</a>
+          </div>
+
         </div>
-        <div class="text-end ms-auto">
-          <button class="btn btn-lg btn-primary " type="submit">FINALISER MA COMMANDE</button>
-          </form>
-        </div>
-        <div class="text-end ms-auto">
-         <a href="{{ path('app_product') }}" class="btn btn-primary">CONTINUER MES ACHATS</a>
-        </div>
+        
+        
       </div>
     </div>
     </div>
@@ -106,7 +113,7 @@
   </div>
   {% else %}
         
-  <div>
+  <div class="h1-home">
    <h1>Mon Panier</h1>
   </div>
 
@@ -114,11 +121,11 @@
   
     <div class="card" style="width: 80rem;">
       <div class="card-header">
-        <h2>VOTRE PANIER EST VIDE</h2>
+        <h2 class="h2-cart">VOTRE PANIER EST VIDE</h2>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Commencez votre shopping dés maintenant à travers nos articles</h5>
-        <a href="{{ path('app_product') }}" class="btn btn-primary">Voir les produits</a>
+        <h5 class="h5-cart">Commencez votre shopping dés maintenant à travers nos articles</h5>
+        <a href="{{ path('app_product') }}" class="btn btn-primary" id="btn-cart1">Voir les produits</a>
       </div>
     </div>
     </div>
@@ -130,5 +137,16 @@
   {% endif %}
 
 </main>
+
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
 
 {% endblock %}

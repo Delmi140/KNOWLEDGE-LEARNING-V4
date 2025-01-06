@@ -37,9 +37,14 @@
 </nav>
 
 <main>
+  <div>
+    <h1 class="h1-vali">Récapitulatif des Cursus et des Leçons<h1>
+  </div>
 
-    <h2>Leçons</h2>
-    <ul>
+  <div class="val-lesson">
+
+    <h2 class="h2-vali">Leçons valider</h2>
+    <ul class="ul-vali">
         {% for lesson in lessons %}
             <li>
                 {{ lesson.name }} 
@@ -50,16 +55,36 @@
         {% endfor %}
     </ul>
 
+  </div>
 
 
-    <h2>Cursus</h2>
-  <ul>
-    {% for cursus in cursuses %}
+
+  <div class="val-lesson">
+
+    <h2 class="h2-vali">Cursus valider</h2>
+    <ul class="ul-vali">
+      {% for cursus in cursuses %}
         <li>{{ cursus.name }} - {{ cursus.isFullyValidated ? 'Validé' : 'Non validé' }}</li>
-    {% endfor %}
-  </ul>
+      {% endfor %}
+    </ul>
+
+  </div>
+
+
+  
 
 </main>
+
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
 
 
 {% endblock %}
