@@ -38,7 +38,7 @@
 
 <main>
 
-    <div>
+    <div class="h1-home">
         <h1>Boutique</h1>
     </div>
 
@@ -52,22 +52,22 @@
       <div class="card-header">
         <div>
         {% for category in categorys %}
-          <h2>{{ category.name }}</h2>  
+          <h2 class="h2-product">{{ category.name }}</h2>  
         {% endfor %}
         </div>
       </div>
       <div class="card-body">
         {% for cursusC in cursusCs %}
-        <h4 class="card-title"> {{ cursusC.name }}</h4>
-        <p class="card-text">Prix: {{ (cursusC.price / 100)|number_format(2,) }} €</p>
+        <h4 class="h4-product"> {{ cursusC.name }}</h4>
+        <p class="p-product">Prix: {{ (cursusC.price / 100)|number_format(2,) }} €</p>
        
         
         
         {% if app.user %}
         {% if cursusC in app.user.purchasedCursuses %}
-          <p>Vous avez accées aux leçons</p>
+          <p class="p-product">Vous avez accées aux leçons</p>
         {% else %}
-          <a href="{{ path('cart_add', {type: 'cursus', id: cursusC.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+          <a href="{{ path('cart_add', {type: 'cursus', id: cursusC.id}) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
         {% endif %}
         {% endif %}
 
@@ -78,11 +78,11 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsC in lessonsCs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsC.name }}</h6>
-              <p>Prix:  {{ (lessonsC.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsC.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsC.price / 100)|number_format(2,) }} €</p>
               
 
 
@@ -92,9 +92,9 @@
 
                 {% if app.user %}
                 {% if lessonsC in app.user.purchasedLessons  or  cursusC in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsC.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsC.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
                 {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsC.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsC.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
                 {% endif %}
                 {% endif %}
 
@@ -109,20 +109,20 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCsguitatre in lessonsCsguitatres %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCsguitatre.name }}</h6>
-              <p>Prix:  {{ (lessonsCsguitatre.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCsguitatre.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCsguitatre.price / 100)|number_format(2,) }} €</p>
               
 
 
               
               {% if app.user %} 
               {% if lessonsCsguitatre in app.user.purchasedLessons  or  cursusC in app.user.purchasedCursuses %}
-                <a href="{{ path('details_index', {id: lessonsCsguitatre.id}) }}" class="btn btn-primary">voir</a>
+                <a href="{{ path('details_index', {id: lessonsCsguitatre.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsguitatre.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsguitatre.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -143,17 +143,17 @@
       </div>
       <div class="card-body">
         {% for cursusCspiano in cursusCspianos %}
-        <h4 class="card-title"> {{ cursusCspiano.name }}</h4>
-        <p class="card-text">Prix: {{ (cursusCspiano.price / 100)|number_format(2,) }} €</p>
+        <h4 class="h4-product"> {{ cursusCspiano.name }}</h4>
+        <p class="p-product">Prix: {{ (cursusCspiano.price / 100)|number_format(2,) }} €</p>
         
         
         
         
         {% if app.user %} 
         {% if cursusCspiano in app.user.purchasedCursuses %}
-          <p>Vous avez accées aux leçons</p>
+          <p class="p-product">Vous avez accées aux leçons</p>
         {% else %}
-          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCspiano.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCspiano.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
         {% endif %}
         {% endif %}
 
@@ -164,20 +164,20 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCspianosI in lessonsCspianosIs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCspianosI.name }}</h6>
-              <p>Prix:  {{ (lessonsCspianosI.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCspianosI.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCspianosI.price / 100)|number_format(2,) }} €</p>
               
 
               
                 
               {% if app.user %} 
               {% if lessonsCspianosI in app.user.purchasedLessons  or  cursusCspiano in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCspianosI.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCspianosI.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosI.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -195,11 +195,11 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCspianosG in lessonsCspianosGs %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCspianosG.name }}</h6>
-              <p>Prix:  {{ (lessonsCspianosG.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCspianosG.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCspianosG.price / 100)|number_format(2,) }} €</p>
               
 
 
@@ -208,9 +208,9 @@
               
               {% if app.user %} 
               {% if lessonsCspianosG in app.user.purchasedLessons  or  cursusCspiano in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCspianosG.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCspianosG.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosG.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCspianosG.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -245,21 +245,21 @@
       <div class="card-header">
         <div>
         {% for categoryInfo in categoryInfos %}
-          <h2>{{ categoryInfo.name }}</h2>  
+          <h2 class="h2-product">{{ categoryInfo.name }}</h2>  
         {% endfor %}
         </div>
       </div>
       <div class="card-body">
         {% for cursusCsInfo in cursusCsInfos %}
-        <h4 class="card-title"> {{ cursusCsInfo.name }}</h4>
-        <p class="card-text">Prix: {{ (cursusCsInfo.price / 100)|number_format(2,) }} €</p>
+        <h4 class="h4-product"> {{ cursusCsInfo.name }}</h4>
+        <p class="p-product">Prix: {{ (cursusCsInfo.price / 100)|number_format(2,) }} €</p>
         
 
         {% if app.user %} 
         {% if cursusCsInfo in app.user.purchasedCursuses %}
-          <p>Vous avez accées aux leçons</p>
+          <p class="p-product">Vous avez accées aux leçons</p>
         {% else %}
-          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCsInfo.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusCsInfo.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
         {% endif %}
         {% endif %}
 
@@ -271,17 +271,17 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCsinfosI in lessonsCsinfosIs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCsinfosI.name }}</h6>
-              <p>Prix:  {{ (lessonsCsinfosI.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCsinfosI.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCsinfosI.price / 100)|number_format(2,) }} €</p>
               
               {% if app.user %} 
               {% if lessonsCsinfosI in app.user.purchasedLessons  or  cursusCsInfo in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCsinfosI.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCsinfosI.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosI.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -298,18 +298,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCsinfosD in lessonsCsinfosDs %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCsinfosD.name }}</h6>
-              <p>Prix:  {{ (lessonsCsinfosD.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCsinfosD.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCsinfosD.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %} 
               {% if lessonsCsinfosD in app.user.purchasedLessons  or  cursusCsInfo in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCsinfosD.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCsinfosD.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosD.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCsinfosD.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -347,21 +347,21 @@
       <div class="card-header">
         <div>
         {% for categoryJard in categoryJards %}
-          <h2>{{ categoryJard.name }}</h2>  
+          <h2 class="h2-product">{{ categoryJard.name }}</h2>  
         {% endfor %}
         </div>
       </div>
       <div class="card-body">
         {% for cursusJard in cursusJards %}
-         <h4 class="card-title"> {{ cursusJard.name }}</h4>
-         <p class="card-text">Prix: {{ (cursusJard.price / 100)|number_format(2,) }} €</p>
+         <h4 class="h4-product"> {{ cursusJard.name }}</h4>
+         <p class="p-product">Prix: {{ (cursusJard.price / 100)|number_format(2,) }} €</p>
          
 
         {% if app.user %} 
         {% if cursusJard in app.user.purchasedCursuses %}
-          <p>Vous avez accées aux leçons</p>
+          <p class="p-product">Vous avez accées aux leçons</p>
         {% else %}
-          <a href="{{ path('cart_add', {type: 'cursus',id: cursusJard.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+          <a href="{{ path('cart_add', {type: 'cursus',id: cursusJard.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
         {% endif %}
         {% endif %}
 
@@ -374,18 +374,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsJardO in lessonsJardOs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsJardO.name }}</h6>
-              <p>Prix:  {{ (lessonsJardO.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsJardO.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsJardO.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %} 
               {% if lessonsJardO in app.user.purchasedLessons  or  cursusJard in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsJardO.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsJardO.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardO.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -400,18 +400,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsJardL in lessonsJardLs %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsJardL.name }}</h6>
-              <p>Prix:  {{ (lessonsJardL.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsJardL.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsJardL.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %} 
               {% if lessonsJardL in app.user.purchasedLessons  or  cursusJard in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsJardL.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsJardL.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardL.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsJardL.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -453,21 +453,21 @@
       <div class="card-header">
         <div>
         {% for categoryCui in categoryCuis %}
-          <h2>{{ categoryCui.name }}</h2>  
+          <h2 class="h2-product">{{ categoryCui.name }}</h2>  
         {% endfor %}
         </div>
       </div>
       <div class="card-body">
         {% for cursusCuiI in cursusCuiIs %}
-         <h4 class="card-title"> {{ cursusCuiI.name }}</h4>
-         <p class="card-text">Prix: {{ (cursusCuiI.price / 100)|number_format(2,) }} €</p>
+         <h4 class="h4-product"> {{ cursusCuiI.name }}</h4>
+         <p class="p-product">Prix: {{ (cursusCuiI.price / 100)|number_format(2,) }} €</p>
          
 
           {% if app.user %} 
           {% if cursusCuiI in app.user.purchasedCursuses %}
-            <p>Vous avez accées aux leçons</p>
+            <p class="p-product">Vous avez accées aux leçons</p>
           {% else %}
-            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiI.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiI.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
           {% endif %}
           {% endif %}
 
@@ -478,18 +478,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCuiM in lessonsCuiMs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCuiM.name }}</h6>
-              <p>Prix:  {{ (lessonsCuiM.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCuiM.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCuiM.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %} 
               {% if lessonsCuiM in app.user.purchasedLessons  or  cursusCuiI in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCuiM.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCuiM.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiM.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiM.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -504,17 +504,17 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCuiS in lessonsCuiSs %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCuiS.name }}</h6>
-              <p>Prix:  {{ (lessonsCuiS.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCuiS.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCuiS.price / 100)|number_format(2,) }} €</p>
               
               {% if app.user %} 
               {% if lessonsCuiS in app.user.purchasedLessons  or  cursusCuiI in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCuiS.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCuiS.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiS.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiS.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -542,14 +542,14 @@
       </div>
       <div class="card-body">
         {% for cursusCuiIA in cursusCuiIAs %}
-         <h4 class="card-title"> {{ cursusCuiIA.name }}</h4>
-         <p class="card-text">Prix: {{ (cursusCuiIA.price / 100)|number_format(2,) }} €</p>
+         <h4 class="h4-product"> {{ cursusCuiIA.name }}</h4>
+         <p class="p-product">Prix: {{ (cursusCuiIA.price / 100)|number_format(2,) }} €</p>
          
           {% if app.user %}
           {% if cursusCuiIA in app.user.purchasedCursuses %}
-            <p>Vous avez accées aux leçons</p>
+            <p class="p-product">Vous avez accées aux leçons</p>
           {% else %}
-            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiIA.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+            <a href="{{ path('cart_add', {type: 'cursus',id: cursusCuiIA.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
           {% endif %}
           {% endif %}
 
@@ -562,18 +562,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCuiO in lessonsCuiOs %}
             <div class="card-header">
-              <h5>Leçon n°1:</h5>
+              <h5 class="h5-product">Leçon n°1:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCuiO.name }}</h6>
-              <p>Prix:  {{ (lessonsCuiO.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCuiO.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCuiO.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %}
               {% if lessonsCuiO in app.user.purchasedLessons  or  cursusCuiIA in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCuiO.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCuiO.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiO.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiO.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -588,18 +588,18 @@
           <div class="card" style="width: 20rem;">
             {% for lessonsCuiH in lessonsCuiHs %}
             <div class="card-header">
-              <h5>Leçon n°2:</h5>
+              <h5 class="h5-product">Leçon n°2:</h5>
             </div>
             <div class="card-body">
-              <h6>{{lessonsCuiH.name }}</h6>
-              <p>Prix:  {{ (lessonsCuiH.price / 100)|number_format(2,) }} €</p>
+              <h6 class="h6-product">{{lessonsCuiH.name }}</h6>
+              <p class="p-product">Prix:  {{ (lessonsCuiH.price / 100)|number_format(2,) }} €</p>
               
 
               {% if app.user %}
               {% if lessonsCuiH in app.user.purchasedLessons  or  cursusCuiIA in app.user.purchasedCursuses %}
-                  <a href="{{ path('details_index', {id: lessonsCuiH.id}) }}" class="btn btn-primary">voir</a>
+                  <a href="{{ path('details_index', {id: lessonsCuiH.id}) }}" class="btn btn-primary" id="btn-product2">Voir la leçon</a>
               {% else %}
-                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiH.id }) }}" class="btn btn-primary">Ajouter au panier</a>
+                  <a href="{{ path('cart_add', {type: 'lessons', id: lessonsCuiH.id }) }}" class="btn btn-primary" id="btn-product1">Ajouter au panier</a>
               {% endif %}
               {% endif %}
 
@@ -639,6 +639,19 @@
 
 
 </main>
+
+
+
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
 
 
 

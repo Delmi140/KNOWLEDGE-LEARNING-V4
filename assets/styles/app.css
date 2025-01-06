@@ -93,8 +93,86 @@ body {
 }
 
 
+/*  Product page */
+
+.h2-product{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h4-product{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h5-product{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h6-product{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.p-product{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#btn-product1{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #cd2c2e;
+}
+
+#btn-product2{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #82b864;
+}
 
 
+/*  Product details page */
+
+.h1-productd{
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+   
+    margin-top: 50px;
+    
+}
+
+
+.h1-productd h1 {
+    font-size: 5rem; /* Augmente la taille du texte (ajustez selon vos besoins) */
+}
+
+.h2-productd{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h5-productd{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.p-productd{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.cart-productd{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+#btn-productd{
+    background-color: #82b864;
+}
+
+.btn-productd{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+
+
+/* Cart page */
 
 
 

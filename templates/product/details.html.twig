@@ -29,7 +29,7 @@
 
 <main>
 
-    <div>
+    <div class="h1-productd">
       <h1>Leçon</h1>
 
     <div>
@@ -38,25 +38,41 @@
 
 
 
-    <div class="cart-boutique">
+    <div class="cart-productd">
     <div class="card" style="width: 80rem;">
       <div class="card-header">
-        <h2>{{ product.name }}</h2>
+        <h2 class="h2-productd">{{ product.name }}</h2>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Cours</h5>
-        <p class="card-text">{{ product.content }}</p>
+        <h5 class="h5-productd">Cours</h5>
+        <p class="p-productd">{{ product.content }}</p>
         
         <div class=image-product >
             <img src="{{ vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top" alt="...">
         </div>
        
-        <a href="{{ path('lesson_validate', {'id': product.id}) }}" class="btn btn-primary">Valider</a>
+       <div class="btn-productd">
+        <a href="{{ path('lesson_validate', {'id': product.id}) }}" class="btn btn-primary" id="btn-productd">Valider</a>
+      </div>
+
       </div>
     </div>
     </div>
 
       
 </main>
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
+
+
+
 
 {% endblock %}
