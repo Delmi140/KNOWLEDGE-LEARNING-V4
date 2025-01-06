@@ -39,3 +39,73 @@ body {
 .navbar-nav .nav-link {
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
+
+/* Home page */
+
+.h1-home{
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+.h1-home h1 {
+    font-size: 5rem; /* Augmente la taille du texte (ajustez selon vos besoins) */
+}
+
+.h2-home{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h5-home{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.h6-home{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.p-presentation{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card-body-presentation{
+    align-items: center;
+    padding-right: 200px;
+    padding-left: 200px;
+}
+
+.p-actualite{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin-top: 50px;
+   
+}
+
+.p-actualite-d{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin-bottom: 50px;
+}
+
+.p-home-top{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+
+
+
+
+
+
+
+/* Footer */
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.p-footer{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
