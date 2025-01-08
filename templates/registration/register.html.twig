@@ -34,24 +34,79 @@
 
 <main>
 
-    <h1>S'inscrire</h1>
+<div class= "content-register" > 
+
+<div class="card-register" style="width: 80rem;">
+
+  <div >
+    <h1 class="h1-register">S'inscrire</h1>
+  </div>
+
+
+
+  <div >
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.delivery_address) }}
+        <div class="form-register">
+          {{ form_row(registrationForm.name) }}
+        </div>
+
+        <div class="form-register">
+          {{ form_row(registrationForm.email) }}
+        </div>
+
+        <div class="form-register">
+          {{ form_row(registrationForm.delivery_address) }}
+        </div>
+
+        <div class="form-register">
         {{ form_row(registrationForm.plainPassword, {
             label: 'Mot de passe:'
         }) }}
+        </div>
+
+        <div class="form-register">
         {{ form_row(registrationForm.agreeTerms) }}
+        </div>
 
-
-        <button type="submit" class="btn">S'inscrire</button>
+        <button type="submit" class="btn" id="btn-register">S'inscrire</button>
     {{ form_end(registrationForm) }}
 
+
+  </div>
+
+  <div>
+
+    <div>
+      <h2 class="h2-register">Vous avez déjà un compte ?</h2>
+    </div>
+
+    <div>
+         <a href="http://127.0.0.1:8000/login" class="btn btn-primary" id="btn-register">Se connecter</a>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+</div>
+
 </main>
+
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
 
 
 {% endblock %}

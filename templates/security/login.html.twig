@@ -27,40 +27,78 @@
 
 <main>
 
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
+
+
+
+
+<div class="content-security">
+
+  <div class="card-security" style="width: 80rem;">
+
+    <form method="post">
+      {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+
+      {% if app.user %}
+        <div class="mb-3" id="mess-security">
             You are logged in as {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
+      {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+      <h1 class="h3 mb-3 font-weight-normal" id = "h1-security">Connexion</h1>
+      <label for="inputEmail" class="lab-security">Email</label>
+      <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+      <label for="inputPassword" class="lab-security">Password</label>
+      <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
+      <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
-    >
+      >
 
-    <div class="checkbox mb-3">
-        <label>
+      <div class="checkbox mb-3">
+        <label class="lab-security">
             <input type="checkbox" name="_remember_me"> Remember me
         </label>
-    </div>
+      </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Se Connecter
-    </button>
-</form>
+      <button class="btn btn-lg btn-primary" type="submit" id= "btn-security">
+          Se Connecter
+      </button>
+
+  </form>
+
+
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+
 
 
 
 </main>
+
+
+
+
+<footer>
+    <div>
+        <p class="p-footer">Nom de la société : Knowledge</p>
+        <p class="p-footer">Adresse : 76 rue de Paris, 75011 PARIS, France</p>
+        <p class="p-footer">Téléphone: 01 46 75 33 99 77</p>
+        <p class="p-footer">Adresse de contact : nowledge@blabla.com</p>
+    </div>
+</footer>
+
 
 {% endblock %}
