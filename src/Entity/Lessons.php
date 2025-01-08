@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LessonsRepository::class)]
 #[Vich\Uploadable]
@@ -42,6 +43,10 @@ class Lessons
     private ?string $attachment = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'attachment')]
+    #[Assert\File(
+    mimeTypes: ["video/mp4", "video/avi", "video/mkv"],  // Types MIME autorisés
+    mimeTypesMessage: "Please upload a valid video file (mp4, avi, mkv)."
+    )]
     private ?File $attachmentFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]

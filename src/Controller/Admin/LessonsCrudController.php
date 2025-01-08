@@ -31,7 +31,9 @@ class LessonsCrudController extends AbstractCrudController
             MoneyField::new('price')->setCurrency('EUR'),
             TextEditorField::new('content'),
             TextField::new('attachmentFile')->setFormType(VichImageType::class),
-            ImageField::new('attachment')->setBasePath('/uploads/attachments')->onlyOnIndex(),
+            ImageField::new('attachment')->setBasePath('/uploads/attachments')->onlyOnIndex()->setFormTypeOptions([
+                'attr' => ['accept' => 'video/*'], // Allow only video files for upload
+            ]),
             DateField::new('createdAt'),
             AssociationField::new('cursus'),
         ];

@@ -45,11 +45,21 @@
       </div>
       <div class="card-body">
         <h5 class="h5-productd">Cours</h5>
-        <p class="p-productd">{{ product.content }}</p>
         
-        <div class=image-product >
-            <img src="{{ vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top" alt="...">
+
+        
+
+        <div class="p-productd">
+          {{ product.content | raw }}
         </div>
+        
+        
+        
+
+        <video width="640" height="360" controls autoplay loop muted poster="#">
+          <source src="{{ vich_uploader_asset(product, 'attachmentFile') }}" type="video/mp4">
+           Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
        
        <div class="btn-productd">
         <a href="{{ path('lesson_validate', {'id': product.id}) }}" class="btn btn-primary" id="btn-productd">Valider</a>
