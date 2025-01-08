@@ -1,6 +1,6 @@
 /* Définition du style global pour le corps de la page */
 body {
-    background-color: #f1f8fc;
+    background-color: #0074c7;
 }
 
 
@@ -40,7 +40,10 @@ body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-
+.custom-navbar {
+    background-color: #00497c; 
+    
+  }
 
 /* Home page */
 
@@ -77,6 +80,7 @@ body {
     align-items: center;
     padding-right: 200px;
     padding-left: 200px;
+   
 }
 
 .p-actualite{
@@ -92,6 +96,10 @@ body {
 
 .p-home-top{
     font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.card-header{
+    background-color: #f1f8fc;
 }
 
 
@@ -380,8 +388,12 @@ body {
 footer {
     text-align: center;
     margin-top: 50px;
+    background-color: #384050;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .p-footer{
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: white;
 }
