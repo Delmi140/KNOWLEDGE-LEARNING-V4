@@ -10,11 +10,26 @@ use Symfony\Component\Routing\RouterInterface;
 use App\Service\CartService;
 use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\PaymentController;
+
+use PHPUnit\Framework\TestCase;
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\Cursus;
+use App\Entity\Lessons;
+use DateTime;
 
 class RegistrationControllerTest extends WebTestCase
+
 {
+    
+
+
     public function testRegister(): void
-{
+    {
     $client = static::createClient();
     $crawler = $client->request('GET', '/register');
 
@@ -38,11 +53,11 @@ class RegistrationControllerTest extends WebTestCase
 
     $client->followRedirect();
     $this->assertSelectorTextContains('.flash-success', 'Votre compte à bien été créé', 'Le message flash est absent ou incorrect.');
-}
+    }
 
 
-public function testVerify(): void
-{
+    public function testVerify(): void
+    {
     $client = static::createClient();
     $userRepository = static::getContainer()->get(UserRepository::class);
 
@@ -72,11 +87,11 @@ public function testVerify(): void
     $this->assertResponseRedirects('/login');
     $client->followRedirect();
     
-}
+    }
 
 
-public function testLogin(): void
-{
+    public function testLogin(): void
+    {
 
     $client = static::createClient();
     // Créer l'utilisateur si nécessaire (assurez-vous que l'utilisateur existe dans la base)
@@ -108,12 +123,80 @@ public function testLogin(): void
     // Vérifier la redirection après connexion réussie
     $this->assertResponseRedirects('/login');
     
-}
+    }
+
+
+    public function testCreateUser(): void
+    {
+        $user = new User();
+        $user->setEmail('test@example.com');
+        $user->setName('John Doe');
+        $user->setDeliveryAddress('123 Main St');
+        $user->setPassword('password');
+        $user->setRoles(['ROLE_USER']);
+        $user->setVerified(true);
+
+        // Vérifier que les valeurs sont correctement définies
+        $this->assertEquals('test@example.com', $user->getEmail());
+        $this->assertEquals('John Doe', $user->getName());
+        $this->assertEquals('123 Main St', $user->getDeliveryAddress());
+        $this->assertEquals('password', $user->getPassword());
+        $this->assertTrue(in_array('ROLE_USER', $user->getRoles()));
+        $this->assertTrue($user->isVerified());
+    }
+
+    public function testRolesAssignment(): void
+    {
+    $user = new User();
+    $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+    
+    $roles = $user->getRoles();
+    
+    // Vérifier que l'utilisateur a les rôles attendus
+    $this->assertTrue(in_array('ROLE_ADMIN', $roles));
+    $this->assertTrue(in_array('ROLE_USER', $roles));
+    }
+
+    public function testAddPurchasedProduct(): void
+    {
+    $user = new User();
+    
+    // Supposons que Cursus et Lessons sont des objets valides.
+    $cursus = $this->createMock(Cursus::class);
+    $lesson = $this->createMock(Lessons::class);
+    
+    $user->addPurchasedProduct($cursus);
+    $user->addPurchasedProduct($lesson);
+
+    // Vérifiez que l'utilisateur a bien ajouté les produits dans les collections
+    $this->assertCount(1, $user->getPurchasedCursuses());
+    $this->assertCount(1, $user->getPurchasedLessons());
+    }
+
+    public function testTokenRegistrationLifeTime(): void
+    {
+    $user = new User();
+    
+    $tokenLifeTime = $user->getTokenRegistrationLifeTime();
+    
+    $now = new DateTime();
+    $this->assertGreaterThan($now, $tokenLifeTime);
+    }
+
+    public function testGetUserIdentifier(): void
+    {
+    $user = new User();
+    $user->setEmail('test@example.com');
+
+    $this->assertEquals('test@example.com', $user->getUserIdentifier());
+    }
 
 
 
 
 
 
+
+    
 
 }
