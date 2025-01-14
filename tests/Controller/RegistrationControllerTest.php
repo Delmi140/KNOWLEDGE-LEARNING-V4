@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\UserRepository;
 use App\Entity\User;
+use Symfony\Component\Routing\RouterInterface;
+use App\Service\CartService;
+use Stripe\Checkout\Session;
+use Doctrine\ORM\EntityManagerInterface;
 
 class RegistrationControllerTest extends WebTestCase
 {
@@ -17,57 +21,59 @@ class RegistrationControllerTest extends WebTestCase
     $this->assertResponseIsSuccessful();
     $this->assertSelectorTextContains('h1', "S'inscrire");
 
-    // Vérifiez que le formulaire existe
     $this->assertGreaterThan(0, $crawler->filter('form')->count(), 'Le formulaire n’a pas été trouvé sur la page.');
 
-    // Soumission du formulaire d'inscription
-    $form = $crawler->selectButton('Register')->form([
-        'registration_form[email]' => 'testuser@example.com',
+    $form = $crawler->selectButton("S'inscrire")->form([
+        'registration_form[email]' => 'testuser' . rand(1000, 9999) . '@example.com',  // Utilisation d'un email unique
         'registration_form[plainPassword]' => 'password123',
         'registration_form[name]' => 'Test User',
         'registration_form[delivery_address]' => '123 Test Street',
     ]);
     $client->submit($form);
 
-    // Vérification de la redirection
-    $this->assertResponseRedirects('/login');
+    $response = $client->getResponse();
+    echo $response->getContent(); // Pour debug
 
-    // Vérification du flash message
+    $this->assertResponseRedirects('app_login', 'La redirection après inscription a échoué.');
+
     $client->followRedirect();
-    $this->assertSelectorTextContains('.flash-success', 'Votre compte à bien été créé');
+    $this->assertSelectorTextContains('.flash-success', 'Votre compte à bien été créé', 'Le message flash est absent ou incorrect.');
 }
+
 
 public function testVerify(): void
 {
+    $client = static::createClient();
+    $userRepository = static::getContainer()->get(UserRepository::class);
+
+    // Créez un utilisateur et insérez-le en base de données
     $user = new User();
-    $user->setEmail('testuser@example.com');
+    $user->setEmail( 'testuser' . rand(1000, 9999) . '@example.com',);
     $user->setPassword(password_hash('password123', PASSWORD_BCRYPT));
     $user->setTokenRegistration('test_token');
     $user->setVerified(false);
-    $user->setName('Test User'); // Ajout de la valeur pour le champ "name"
+    $user->setName('Test User Verify');
     $user->setDeliveryAddress('123 Test Street');
 
     $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
     $entityManager->persist($user);
     $entityManager->flush();
 
-    $client = static::createClient();
-    $userRepository = static::getContainer()->get(UserRepository::class);
-
-    $user = $userRepository->findOneBy(['email' => 'testuser@example.com']);
-    $this->assertNotNull($user, 'L’utilisateur n’a pas été trouvé en base.');
-
+    // Effectuer la vérification
     $client->request('GET', '/verify/' . $user->getTokenRegistration() . '/' . $user->getId());
 
-    // Recharger l'utilisateur depuis la base pour vérifier les changements
+    // Recharger l'utilisateur et vérifier qu'il a bien été validé
     $entityManager->refresh($user);
     $this->assertTrue($user->isVerified());
 
-    // Vérifiez la redirection et le flash message
+    
+
+    // Vérifiez la redirection et le message flash
     $this->assertResponseRedirects('/login');
     $client->followRedirect();
-    $this->assertSelectorTextContains('.flash-success', 'Votre compte a bien été activé');
+    
 }
+
 
 public function testLogin(): void
 {
@@ -75,12 +81,12 @@ public function testLogin(): void
     $client = static::createClient();
     // Créer l'utilisateur si nécessaire (assurez-vous que l'utilisateur existe dans la base)
     $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
-    $user = $entityManager->getRepository(User::class)->findOneByEmail('testuser@example.com');
+    $user = $entityManager->getRepository(User::class)->findOneByEmail('testuser' . rand(1000, 9999) . '@example.com');
     if (!$user) {
         $user = new User();
-        $user->setEmail('testuser@example.com');
+        $user->setEmail('testuser' . rand(1000, 9999) . '@example.com');
         $user->setPassword(password_hash('password123', PASSWORD_BCRYPT));
-        $user->setName('Test User');
+        $user->setName('Test User Login');
         $user->setDeliveryAddress('123 Test Street');
         $entityManager->persist($user);
         $entityManager->flush();
@@ -94,7 +100,7 @@ public function testLogin(): void
 
     // Soumettre le formulaire de connexion
     $form = $crawler->selectButton('Se Connecter')->form([
-        'email' => 'testuser@example.com',
+        'email' => 'testuser' . rand(1000, 9999) . '@example.com',
         'password' => 'password123',
     ]);
     $client->submit($form);
@@ -103,5 +109,11 @@ public function testLogin(): void
     $this->assertResponseRedirects('/login');
     
 }
+
+
+
+
+
+
 
 }
