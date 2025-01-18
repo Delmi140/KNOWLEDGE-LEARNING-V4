@@ -18,18 +18,58 @@
         <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8000/product">Boutique</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8000/register">S'inscrire</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8000/login">Se connecter</a>
-        </li>
+        
+
+        {% if app.user %}
         <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8000/cart">Panier</a>
         </li>
+        {% endif %}
+
+        {% if app.user %}
         <li class="nav-item">
           <a class="nav-link" href="https://127.0.0.1:8000/validation">Validation</a>
         </li>
+        {% endif %}
+
+
+
+        {% if app.user %}
+          {# Si l'utilisateur est connecté, on cache le bouton #}
+          <style>
+            #mon-lien1 {
+              display: none;
+                }
+          </style>
+        {% endif %}
+
+        <li class="nav-item" id="mon-lien1">
+          <a class="nav-link" href="http://127.0.0.1:8000/register">S'inscrire</a>
+        </li>
+
+
+
+        {% if app.user %}
+          {# Si l'utilisateur est connecté, on cache le bouton #}
+          <style>
+            #mon-lien2 {
+              display: none;
+                }
+          </style>
+        {% endif %}
+        <li class="nav-item" id="mon-lien2">
+          <a class="nav-link" href="http://127.0.0.1:8000/login">Se connecter</a>
+        </li>
+
+        {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/login">Se déconnecter</a>
+        </li>
+        {% endif %}
+
+
+
+
       </ul>
     </div>
   </div>
