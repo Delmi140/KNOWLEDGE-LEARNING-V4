@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 
 
-
+// Controller for payment management
 class PaymentController extends AbstractController{
 
 
@@ -31,10 +31,10 @@ class PaymentController extends AbstractController{
     #[Route('/order/create-session-stripe', name:'payment_stripe') ]
     public function stripeChectout(CartService $cartService): RedirectResponse 
     {
-        
+        // Preparing products for Stripe
         $productStripe = [];
 
-        $recapCart = $cartService->getTotal() ;
+        $recapCart = $cartService->getTotal() ;// Retrieve items from cart
         
 
         foreach($recapCart as $item){
@@ -50,7 +50,9 @@ class PaymentController extends AbstractController{
                 ];
         }
 
+        // Configuring the Stripe API key
         Stripe::setApiKey('sk_test_51QWiCIFLpGQLQVezpTGLMvBpPCtU8pYAHAIT7HA6MPhpi0wmircH0YhhTcyCQ1Nae7OoavmpmlR2IDRJG01DiMvl00gr5RvI94');
+        // Creating the Stripe session
         $checkout_session = Session::create([
             
             'payment_method_types' => ['card'],
@@ -71,7 +73,7 @@ class PaymentController extends AbstractController{
     #[Route('/order/success/', name:'payment_success')]
     public function stripeSuccess(CartService $cartService, EntityManagerInterface $entityManager ): Response {
 
-        // Récupérer l'utilisateur connecté
+        // Retrieve the logged in user
         $user = $this->getUser();
         
 
@@ -81,7 +83,7 @@ class PaymentController extends AbstractController{
 
 
        
-        // Ajouter les cursus et leçons achetés à l'utilisateur
+        // Adding courses and lessons purchased to the user
         $cartItems = $cartService->getTotal();
 
         foreach ($cartItems as $item) {
@@ -92,19 +94,20 @@ class PaymentController extends AbstractController{
             }
         }
 
-        $entityManager->flush(); // Sauvegarde en BDD
+        $entityManager->flush(); // Backup in database
         
 
-        // Videz le panier
+        // Empty the basket
         $cartService->removeCartAll();
 
-
+        // Displaying the success page
         return $this->render('order/success.html.twig');
 
     }
 
     #[Route('/order/error/', name:'payment_error')]
     public function stripeError(CartService $cartService): Response {
+        // Displaying the error page
         return $this->render('order/error.html.twig');
 
     }
